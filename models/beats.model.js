@@ -36,6 +36,16 @@ const beatSchema = new mongoose.Schema ({
     min: 56,
     max: 240
   }
+}, {
+  timestamps: true,
+  toJSON: {
+    transform: function(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.__v;
+      return ret;
+    }
+  }
 })
 
 const Beats = mongoose.model('Beats', beatSchema)
