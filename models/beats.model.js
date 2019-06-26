@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('./user.model');
 const Schema = mongoose.Schema;
+const steps = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
 const beatSchema = new mongoose.Schema ({
   owner: {type: Schema.Types.ObjectId, ref:'User'},
@@ -9,45 +10,27 @@ const beatSchema = new mongoose.Schema ({
   },
   kick: {
     type: [],
-    default: [false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false]
+    default: steps
   },
   snare: {
     type: [],
-    default: [false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false]
+    default: steps
   },
   cl_hat: {
     type: [],
-    default: [false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false]
+    default: steps
   },
   op_hat: {
     type: [],
-    default: [false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false]
+    default: steps
   },
   lo_tom: {
     type: [],
-    default: [false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false]
+    default: steps
   },
   hi_tom: {
     type: [],
-    default: [false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false, 
-    false, false, false, false]
+    default: steps
   },
   bpm: {
     type: Number,

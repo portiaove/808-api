@@ -29,11 +29,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     match: [URL_PATTERN, 'Image Url is invalid'],
     default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIBUhvKJgtQNMsZ2D6TtI_-7rjPr1NYp6DEzYZ_KX3w4ZLB-tW"
-  },
-  beats: [{type: Schema.Types.ObjectId, ref:'Beats'}]
+  }
 }, {
   timestamps: true,
   toJSON: {
+    virtuals: true,
     transform: function(doc, ret) {
       ret.id = ret._id;
       delete ret._id;
@@ -42,6 +42,13 @@ const userSchema = new mongoose.Schema({
       return ret;
     }
   }
+})
+
+userSchema.virtual('beats', {
+  ref: 'Beats',
+  localField: '_id',
+  foreignField: 'owner',
+  options: { sort: { createdAt: -1 } }
 })
 
 userSchema.pre('save', function(next) {
