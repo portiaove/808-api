@@ -52,11 +52,9 @@ module.exports.getProfile = (req, res, next) => {
 }
 
 module.exports.editProfile = (req, res, next) => {
-  console.log(req.body)
 
   User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
   .then(user => {
-    console.log(user)
     if (!user) {
       throw createError(404, 'User not found')
     } else {

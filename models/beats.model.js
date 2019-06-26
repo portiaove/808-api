@@ -7,34 +7,56 @@ const beatSchema = new mongoose.Schema ({
   name: {
     type: String
   },
-  kick: [false, false, false, false, 
+  kick: {
+    type: [],
+    default: [false, false, false, false, 
     false, false, false, false, 
     false, false, false, false, 
-    false, false, false, false],
-  snare: [false, false, false, false, 
+    false, false, false, false]
+  },
+  snare: {
+    type: [],
+    default: [false, false, false, false, 
     false, false, false, false, 
     false, false, false, false, 
-    false, false, false, false],
-  cl_hat: [false, false, false, false, 
+    false, false, false, false]
+  },
+  cl_hat: {
+    type: [],
+    default: [false, false, false, false, 
     false, false, false, false, 
     false, false, false, false, 
-    false, false, false, false],
-  op_hat: [false, false, false, false, 
+    false, false, false, false]
+  },
+  op_hat: {
+    type: [],
+    default: [false, false, false, false, 
     false, false, false, false, 
     false, false, false, false, 
-    false, false, false, false],
-  lo_tom: [false, false, false, false, 
+    false, false, false, false]
+  },
+  lo_tom: {
+    type: [],
+    default: [false, false, false, false, 
     false, false, false, false, 
     false, false, false, false, 
-    false, false, false, false],
-  hi_tom: [false, false, false, false, 
+    false, false, false, false]
+  },
+  hi_tom: {
+    type: [],
+    default: [false, false, false, false, 
     false, false, false, false, 
     false, false, false, false, 
-    false, false, false, false],
+    false, false, false, false]
+  },
   bpm: {
     type: Number,
     min: 56,
-    max: 240
+    max: 240,
+  },
+  likes: {
+    type: Number,
+    default: 0
   }
 }, {
   timestamps: true,

@@ -15,6 +15,7 @@ require('./configs/passport.config');
 const session = require('./configs/session.config');
 
 const authRouter = require('./routes/auth.routes');
+const beatsRouter = require('./routes/beats.routes');
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/beats', beatsRouter);
 app.use('/', authRouter);
 
 app.use(function (req, res, next) {
