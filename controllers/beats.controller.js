@@ -24,8 +24,13 @@ module.exports.create = (req, res, next) => {
 }
 
 module.exports.list = (req, res, next) => {
+  const { sortedBy } = req.query;
+  const criterial = {};
+
   Beats.find()
-  .sort({createdAt: -1})
+  .populate('likes')
+  .populate('owner')
+  .sort({[sortedBy]: -1})  
   .then(beats => {
     res.status(201).json(beats)
   })
@@ -36,7 +41,34 @@ module.exports.detail = (req, res, next) => {
   const id = req.params.id;
 
   Beats.findById(id)
-  .then(beat => { res.status(201).json(beat)})
+  .populate('likes')
+  .then(beat => { 
+    res.status(201).json(beat) 
+  })
   .catch(next)
 }
 
+module.exports.delete = (req, res, next) => {
+  const id = req.params.id;
+
+  Beats.findByIdAndDelete(id)
+  .then(beat => {
+    if (!beat) {
+      throw createError(404, 'Beat not found!')
+    } else {
+      res.status(204).json()
+    }
+  })
+  .catch(next)
+}
+
+module.exports.like = (req, res, next) => {
+  const owner = req.user.id
+  const beat = req.params.id
+
+  Beats.findById(beat)
+  .populate('likes')
+  .then(beat => {
+
+  })
+}

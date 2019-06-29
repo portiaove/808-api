@@ -38,28 +38,3 @@ module.exports.logout = (req, res, next) => {
   req.logout();
   res.status(204).json(res.body);
 }
-
-module.exports.getProfile = (req, res, next) => {
-  User.findById(req.params.id)
-  .then(user => {
-    if (!user) {
-      throw createError(404, 'User not found')
-    } else {
-      res.json(user)
-    }
-  })
-  .catch(next)
-}
-
-module.exports.editProfile = (req, res, next) => {
-
-  User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
-  .then(user => {
-    if (!user) {
-      throw createError(404, 'User not found')
-    } else {
-      res.json(user)
-    }
-  })
-  .catch(next)
-}
