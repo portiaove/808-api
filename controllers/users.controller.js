@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const User = require('../models/user.model');
 const Beats = require('../models/beats.model');
+const Like = require('../models/likes.model');
 
 module.exports.getProfile = (req, res, next) => {
   const userId = req.params.id
@@ -26,5 +27,24 @@ module.exports.editProfile = (req, res, next) => {
       res.status(201).json(user)
     }
   })
+  .catch(next)
+}
+
+
+module.exports.getLikes = (req, res, next) => {
+  const user = req.user.id
+
+  Like.find({ user })
+  .populate('beat')
+  .then(likes => res.status(201).json(likes))
+  .catch(next)
+}
+
+module.exports.getProfileBeats = (req, res, next) => {
+  const userId = req.params.id
+
+  User.findById(userId)
+  .populate('beats')
+  .then(user => res.status(201).json(user.beats))
   .catch(next)
 }

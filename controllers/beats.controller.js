@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const Beats = require('../models/beats.model');
 const User = require('../models/user.model');
+const Like = require('../models/likes.model');
 
 module.exports.create = (req, res, next) => {
   const { name, kick, snare, cl_hat, op_hat, lo_tom, hi_tom, bpm } = req.body;
@@ -63,12 +64,28 @@ module.exports.delete = (req, res, next) => {
 }
 
 module.exports.like = (req, res, next) => {
-  const owner = req.user.id
+  const user = req.user.id
   const beat = req.params.id
 
-  Beats.findById(beat)
-  .populate('likes')
-  .then(beat => {
+  // Like.findOne({user: user})
+  // .then(like => {
+  //   if (!like) {
+      const like = new Like({ user, beat })
+      like.save()
+      .then(like => res.status(201).json(like))
+      .catch(next)
+  //   } else {
+  //     throw createError(400, 'You already liked this!')
+  //   }
+  // })
+  // .catch(next)
+}
 
-  })
+module.exports.notLike = (req, res, next) => {
+  const user = req.user.id
+  const beat = req.params.id
+
+  Like.findOneAndDelete({ user, beat })
+  .then(like => res.status(201).json(like))
+  .catch(next)
 }

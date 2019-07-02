@@ -7,7 +7,8 @@ const secure = require('../middlewares/secure.mid');
 router.get('/', beat.list);
 router.get('/:id', beat.detail);
 
-router.post('/like/:id', beat.like);
+router.post('/:id/like', beat.like);
+router.delete('/:id/like', beat.notLike);
 router.delete('/:id', beat.delete);
 router.post('/', beat.create);
 
