@@ -4,7 +4,7 @@ const User = require('../models/user.model');
 const Like = require('../models/likes.model');
 
 module.exports.create = (req, res, next) => {
-  const { name, kick, snare, cl_hat, op_hat, lo_tom, hi_tom, bpm } = req.body;
+  const { name, kick, snare, clHat, opHat, loTom, hiTom, bpm } = req.body;
   const owner = req.user.id
  
   const beat = new Beats({
@@ -12,10 +12,10 @@ module.exports.create = (req, res, next) => {
     name,
     kick,
     snare,
-    cl_hat,
-    op_hat,
-    hi_tom,
-    lo_tom,
+    clHat,
+    opHat,
+    hiTom,
+    loTom,
     bpm
   })
 
@@ -67,18 +67,18 @@ module.exports.like = (req, res, next) => {
   const user = req.user.id
   const beat = req.params.id
 
-  // Like.findOne({user: user})
-  // .then(like => {
-  //   if (!like) {
+  Like.findOne({user, beat})
+  .then(like => {
+    if (!like) {
       const like = new Like({ user, beat })
       like.save()
       .then(like => res.status(201).json(like))
       .catch(next)
-  //   } else {
-  //     throw createError(400, 'You already liked this!')
-  //   }
-  // })
-  // .catch(next)
+    } else {
+      throw createError(400, 'You already liked this!')
+    }
+  })
+  .catch(next)
 }
 
 module.exports.notLike = (req, res, next) => {
@@ -86,6 +86,6 @@ module.exports.notLike = (req, res, next) => {
   const beat = req.params.id
 
   Like.findOneAndDelete({ user, beat })
-  .then(like => res.status(201).json(like))
+  .then(like => res.status(204).json())
   .catch(next)
 }

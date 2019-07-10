@@ -17,19 +17,19 @@ const beatSchema = new mongoose.Schema ({
     type: [],
     default: steps
   },
-  cl_hat: {
+  clHat: {
     type: [],
     default: steps
   },
-  op_hat: {
+  opHat: {
     type: [],
     default: steps
   },
-  lo_tom: {
+  loTom: {
     type: [],
     default: steps
   },
-  hi_tom: {
+  hiTom: {
     type: [],
     default: steps
   },

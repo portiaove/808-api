@@ -45,6 +45,7 @@ module.exports.getProfileBeats = (req, res, next) => {
 
   User.findById(userId)
   .populate('beats')
+  // .populate('likes')  //ACABO DE AÑADIR !!!!!!!!!
   .then(user => res.status(201).json(user.beats))
   .catch(next)
 }
