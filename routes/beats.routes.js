@@ -5,6 +5,7 @@ const secure = require('../middlewares/secure.mid');
 
 
 router.get('/', secure.isAuthenticated, beat.list);
+router.get('/:id/like', secure.isAuthenticated, beat.checkLiked);
 router.get('/:id', secure.isAuthenticated, beat.detail);
 
 router.post('/:id/like', secure.isAuthenticated, beat.like);

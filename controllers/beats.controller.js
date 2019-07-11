@@ -63,6 +63,21 @@ module.exports.delete = (req, res, next) => {
   .catch(next)
 }
 
+module.exports.checkLiked = (req, res, next) => {
+  const user = req.user.id
+  const beat = req.params.id
+
+  Like.findOne({user, beat})
+  .then(like => {
+    if (!like) {
+      res.status(201).json(false)
+    } else {
+      res.status(201).json(true)
+    }
+  })
+  .catch(next)
+}
+
 module.exports.like = (req, res, next) => {
   const user = req.user.id
   const beat = req.params.id
