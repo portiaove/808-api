@@ -90,7 +90,9 @@ module.exports.like = (req, res, next) => {
       .then(like => res.status(201).json(like))
       .catch(next)
     } else {
-      throw createError(400, 'You already liked this!')
+      Like.findOneAndDelete({ user, beat })
+      .then(like => res.status(204).json())
+      .catch(next)
     }
   })
   .catch(next)
