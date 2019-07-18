@@ -1,6 +1,16 @@
 const cors = require('cors');
+require('dotenv').config()
+
+const ORIGINS = [process.env.ALLOW_ORIGINS, process.env.ALLOW_ORIGINS_MOBILE]
+
 
 module.exports = cors({
   credentials: true,
-  origin: process.env.ALLOW_ORIGINS || 'http://localhost:3000' || 'http://192.168.1.207:3000'
+  origin: function (origin, callback) {
+    if (ORIGINS.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 })

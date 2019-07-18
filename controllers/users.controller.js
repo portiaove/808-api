@@ -17,6 +17,16 @@ module.exports.getProfile = (req, res, next) => {
   })
 }
 
+module.exports.getProfileBeats = (req, res, next) => {
+  const userId = req.params.id
+
+  User.findById(userId)
+  .populate('beats')
+  // .populate('likes')  //ACABO DE AÑADIR !!!!!!!!!
+  .then(user => res.status(201).json(user.beats))
+  .catch(next)
+}
+
 module.exports.editProfile = (req, res, next) => {
 
   User.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
@@ -37,15 +47,5 @@ module.exports.getLikes = (req, res, next) => {
   Like.find({ user })
   .populate('beat')
   .then(likes => res.status(201).json(likes))
-  .catch(next)
-}
-
-module.exports.getProfileBeats = (req, res, next) => {
-  const userId = req.params.id
-
-  User.findById(userId)
-  .populate('beats')
-  // .populate('likes')  //ACABO DE AÑADIR !!!!!!!!!
-  .then(user => res.status(201).json(user.beats))
   .catch(next)
 }

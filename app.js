@@ -14,6 +14,7 @@ require('./configs/passport.config');
 const session = require('./configs/session.config');
 const cors = require('./configs/cors.config');
 
+
 //REVISAR CONFIG CORS ??
 
 // const cors = require('cors');
